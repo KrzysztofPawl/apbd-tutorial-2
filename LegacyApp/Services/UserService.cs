@@ -13,7 +13,7 @@ namespace LegacyApp
             (_clientRepository, _userCreditService) = (clientRepository, userCreditService);
 
         public UserService()
-            : this(new ClientRepository(), new UserCreditService())
+            : this(ClientRepositoryFactory.CreateClientRepository(), UserCreditServiceFactory.Create())
         {
         }
 
@@ -53,12 +53,12 @@ namespace LegacyApp
                     user.HasCreditLimit = false;
                     break;
                 case "ImportantClient":
-                    int creditLimit = _userCreditService.GetCreditLimit(user.LastName, user.DateOfBirth);
+                    int creditLimit = _userCreditService.EvaluateCustomerCreditLimit(user.LastName, user.DateOfBirth);
                     user.CreditLimit = creditLimit * 2;
                     break;
                 default:
                     user.HasCreditLimit = true;
-                    user.CreditLimit = _userCreditService.GetCreditLimit(user.LastName, user.DateOfBirth);
+                    user.CreditLimit = _userCreditService.EvaluateCustomerCreditLimit(user.LastName, user.DateOfBirth);
                     break;
             }
 
@@ -70,7 +70,7 @@ namespace LegacyApp
             UserDataAccess.AddUser(user);
             return true;
         }
-        
+
         private static bool IsValidNames(string firstName, string lastName)
         {
             return !string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName);

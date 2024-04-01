@@ -2,6 +2,7 @@ using LegacyApp;
 
 namespace LegacyAppTest;
 
+//Setup
 public class MockClientRepository : IClientRepository
 {
     private readonly Client _clientToReturn;
@@ -19,15 +20,14 @@ public class MockClientRepository : IClientRepository
 
 public class MockUserCreditService : IUserCreditService
 {
-
     private readonly int _creditLimit;
 
     public MockUserCreditService(int creditLimit = 1000)
     {
         _creditLimit = creditLimit;
     }
-    
-    public int GetCreditLimit(string lastName, DateTime dateOfBirth)
+
+    public int EvaluateCustomerCreditLimit(string lastName, DateTime dateOfBirth)
     {
         return _creditLimit;
     }
@@ -35,11 +35,11 @@ public class MockUserCreditService : IUserCreditService
 
 public class UserServiceTests
 {
-    
     private const int MinimumAge = 21;
-    
+
     //Helper Methods
-    private static (UserService, IClientRepository, IUserCreditService) CreateUserServiceWithMocks(string clientType, int creditLimit = 1000)
+    private static (UserService, IClientRepository, IUserCreditService) CreateUserServiceWithMocks(string clientType,
+        int creditLimit = 1000)
     {
         var client = new Client { Type = clientType };
         var mockClientRepository = new MockClientRepository(client);
@@ -49,12 +49,13 @@ public class UserServiceTests
         return (mockUserService, mockClientRepository, mockUserCreditService);
     }
 
-    private static (string firstName, string lastName, string email, DateTime dateOfBirth, int clientId) GetMockUserData(
-        string firstName = "John",
-        string lastName = "Doe",
-        string email = "john@wp.com",
-        DateTime? dateOfBirth = null,
-        int clientId = 1)
+    private static (string firstName, string lastName, string email, DateTime dateOfBirth, int clientId)
+        GetMockUserData(
+            string firstName = "John",
+            string lastName = "Doe",
+            string email = "john@wp.com",
+            DateTime? dateOfBirth = null,
+            int clientId = 1)
     {
         dateOfBirth ??= new DateTime(1995, 1, 1);
         return (firstName, lastName, email, dateOfBirth.Value, clientId);
@@ -103,11 +104,11 @@ public class UserServiceTests
     {
         var today = DateTime.Today;
         var mockDateOfBirth = today.AddYears(-MinimumAge).AddDays(1);
-        
+
         var (testObj, _, _) = CreateUserServiceWithMocks("NormalClient");
-        var (firstName, lastName, email, dateOfBirth, clientId) = GetMockUserData(dateOfBirth:mockDateOfBirth);
+        var (firstName, lastName, email, dateOfBirth, clientId) = GetMockUserData(dateOfBirth: mockDateOfBirth);
         var result = testObj.AddUser(firstName, lastName, email, dateOfBirth, clientId);
-        
+
         Assert.False(result);
     }
 
@@ -116,12 +117,11 @@ public class UserServiceTests
     {
         var today = DateTime.Today;
         var mockDateOfBirth = today.AddYears(-MinimumAge);
-        
+
         var (testObj, _, _) = CreateUserServiceWithMocks("NormalClient");
-        var (firstName, lastName, email, dateOfBirth, clientId) = GetMockUserData(dateOfBirth:mockDateOfBirth);
+        var (firstName, lastName, email, dateOfBirth, clientId) = GetMockUserData(dateOfBirth: mockDateOfBirth);
         var result = testObj.AddUser(firstName, lastName, email, dateOfBirth, clientId);
-        
+
         Assert.True(result);
     }
-    
 }
