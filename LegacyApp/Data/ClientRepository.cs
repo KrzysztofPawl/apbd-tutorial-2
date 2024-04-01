@@ -1,4 +1,7 @@
-﻿namespace LegacyApp
+﻿using LegacyApp.Data.Interfaces;
+using LegacyApp.Models;
+
+namespace LegacyApp.Data
 {
     public class ClientRepository : IClientRepository
     {

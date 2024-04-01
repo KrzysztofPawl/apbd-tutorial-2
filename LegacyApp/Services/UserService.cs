@@ -1,6 +1,10 @@
 ﻿using System;
+using LegacyApp.Data;
+using LegacyApp.Data.Interfaces;
+using LegacyApp.Factories;
+using LegacyApp.Models;
 
-namespace LegacyApp
+namespace LegacyApp.Services
 {
     public class UserService
     {

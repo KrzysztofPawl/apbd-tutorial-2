@@ -1,4 +1,8 @@
-namespace LegacyApp;
+using LegacyApp.Data;
+using LegacyApp.Data.Interfaces;
+using LegacyApp.Services;
+
+namespace LegacyApp.Factories;
 
 public class UserCreditServiceFactory
 {

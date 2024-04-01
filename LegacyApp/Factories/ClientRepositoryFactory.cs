@@ -1,4 +1,8 @@
-namespace LegacyApp;
+using LegacyApp.Data;
+using LegacyApp.Data.Interfaces;
+using LegacyApp.Models;
+
+namespace LegacyApp.Factories;
 
 public class ClientRepositoryFactory
 {

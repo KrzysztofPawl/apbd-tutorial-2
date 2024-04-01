@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using LegacyApp.Models;
 
-namespace LegacyApp;
+namespace LegacyApp.Data.Interfaces;
 
 public interface IDatabaseAccess<T>
 {

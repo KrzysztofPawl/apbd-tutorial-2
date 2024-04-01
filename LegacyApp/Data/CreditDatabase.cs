@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using LegacyApp.Data.Interfaces;
 
-namespace LegacyApp;
+namespace LegacyApp.Data;
 
 public class CreditDatabase : ICreditDatabase
 {

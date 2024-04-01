@@ -1,6 +1,7 @@
 ﻿using System;
+using LegacyApp.Data.Interfaces;
 
-namespace LegacyApp
+namespace LegacyApp.Services
 {
     public class UserCreditService : IUserCreditService, IDisposable
     {

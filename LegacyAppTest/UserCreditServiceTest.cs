@@ -1,4 +1,5 @@
-using LegacyApp;
+using LegacyApp.Data.Interfaces;
+using LegacyApp.Services;
 
 namespace LegacyAppTest
 {
